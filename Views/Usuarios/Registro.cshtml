@@ -1,0 +1,58 @@
+﻿@model RegistroViewModel
+
+@{
+    ViewData["Title"] = "Registro de Usuario";
+}
+
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center imagen-fondo">
+    <div class="row w-100 align-items-center imagen-container shadow-lg" style="border-radius: 20px">
+        <!-- Panel de Información -->
+        <div class="col-lg-6 col-md-12 text-center mb-4 mb-lg-0">
+            <h1 class="display-3 fw-bold">TaskCore</h1>
+            <p class="lead mb-4" style="font-size: larger;
+             font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+                    Simplifica tu productividad con una herramienta moderna para gestionar tus tareas.
+            </p>
+            <img src="/image/Logo Registro.svg" alt="Task management" class="img-fluid" style="max-width: 80%; height: auto;">
+        </div>
+
+        <!-- Formulario de Registro -->
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card shadow-lg border-0 mx-auto" style="max-width: 400px; border-radius: 15px;">
+                <div class="card-body p-4 p-md-5 mx-auto">
+                    <h2 class="text-center text-dark mb-4">¡Crea tu cuenta!</h2>
+                    <form asp-action="Registro">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <!-- Campo Email -->
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label text-dark">Correo Electrónico</label>
+                            <input asp-for="Email" autocomplete="on" class="form-control" placeholder="Ingresa tu correo electrónico" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Campo Contraseña -->
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label text-dark">Contraseña</label>
+                            <input asp-for="Password" class="form-control" type="password" placeholder="Crea una contraseña segura" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <!-- Botón de Registro -->
+                        <button type="submit" class="btn btn-primary w-100" style="border-radius: 30px;">Regístrate</button>
+
+                        <!-- Enlace para Iniciar Sesión -->
+                        <div class="text-center mt-3">
+                            <h6 class="text-dark">¿Ya tienes una cuenta?</h6>
+                            <a class="btn btn-outline-primary btn-sm" asp-action="login" style="border-radius: 30px;">Inicia sesión</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

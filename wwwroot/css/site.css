@@ -6,6 +6,9 @@ html {
   html {
     font-size: 16px;
   }
+    body {
+        overflow-y: auto;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -18,7 +21,7 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    overflow-y: auto;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +31,14 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.imagen-fondo {
+    background-image: url("/image/Fondo.png");
+    -o-object-fit: inherit;
+    object-fit: inherit;
+}
+
+.imagen-container {
+    background-image: url("/image/Container.png");
 }

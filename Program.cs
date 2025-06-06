@@ -1,13 +1,39 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TaskCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container Only user Authenticated.
+var politicaUsuariosAutenticados = new AuthorizationPolicyBuilder()
+    .RequireAuthenticatedUser().Build();
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(opciones =>
+{
+    opciones.Filters.Add(new AuthorizeFilter(politicaUsuariosAutenticados)); 
+});
 
 //Configurando el ApplicationDbContext como un servicio.
 builder.Services.AddDbContext<ApplicationDbContext>(opciones => opciones.UseSqlServer("name=DefaultConnection"));
+
+// Configuring Identity services
+builder.Services.AddAuthentication();
+
+// Configuring Identity options
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(opciones => {
+    opciones.SignIn.RequireConfirmedAccount = false;
+}).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+// Configuring Cookie Authentication
+builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
+    opciones =>
+    {
+        opciones.LoginPath = "/usuarios/Login";
+        opciones.AccessDeniedPath = "/usuarios/Login";
+    });
 
 var app = builder.Build();
 
@@ -21,6 +47,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+// Enable static files middleware
+app.UseAuthentication();
 
 app.UseAuthorization();
 
