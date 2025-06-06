@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaskCore;
 
@@ -11,9 +12,11 @@ using TaskCore;
 namespace TaskCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250606154742_Pasos")]
+    partial class Pasos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,35 +24,6 @@ namespace TaskCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("TaskCore.Entidades.ArchivoAdjunto", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Orden")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TareaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Titutlo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TareaId");
-
-                    b.ToTable("ArchivosAdjuntos");
-                });
 
             modelBuilder.Entity("TaskCore.Entidades.Paso", b =>
                 {
@@ -104,17 +78,6 @@ namespace TaskCore.Migrations
                     b.ToTable("Tareas");
                 });
 
-            modelBuilder.Entity("TaskCore.Entidades.ArchivoAdjunto", b =>
-                {
-                    b.HasOne("TaskCore.Entidades.Tarea", "Tarea")
-                        .WithMany("ArchivosAdjuntos")
-                        .HasForeignKey("TareaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tarea");
-                });
-
             modelBuilder.Entity("TaskCore.Entidades.Paso", b =>
                 {
                     b.HasOne("TaskCore.Entidades.Tarea", "Tarea")
@@ -128,8 +91,6 @@ namespace TaskCore.Migrations
 
             modelBuilder.Entity("TaskCore.Entidades.Tarea", b =>
                 {
-                    b.Navigation("ArchivosAdjuntos");
-
                     b.Navigation("Pasos");
                 });
 #pragma warning restore 612, 618
