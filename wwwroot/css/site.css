@@ -42,3 +42,7 @@ body {
 .imagen-container {
     background-image: url("/image/Container.png");
 }
+
+.imagen-container-2 {
+    background-image: url("/image/Logo inicio sesion.svg");
+}

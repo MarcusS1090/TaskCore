@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,7 @@ using TaskCore.Models;
 
 namespace TaskCore.Controllers
 {
-    public class UsuariosController: Controller
+    public class UsuariosController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
@@ -51,8 +52,12 @@ namespace TaskCore.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string mensaje = null)
         {
+            if (mensaje is not null)
+            {
+                ViewData["mensaje"] = mensaje;
+            }
             return View();
         }
         [HttpPost]
@@ -77,6 +82,80 @@ namespace TaskCore.Controllers
         {
             await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
             return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ChallengeResult LoginExterno(string proovedor, string urlRetorno = null)
+        {
+            var urlRedireccion = Url.Action("RegistrarUsuarioExterno", values: new { urlRetorno });
+            var propiedades = signInManager.ConfigureExternalAuthenticationProperties(proovedor, urlRedireccion);
+            return new ChallengeResult(proovedor, propiedades);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> RegistrarUsuarioExterno(string urlRetorno = null, string remoteError = null)
+        {
+            urlRetorno = urlRetorno ?? Url.Content("~/");
+
+            var mensaje = "";
+            if (remoteError is not null)
+            {
+                mensaje = $"Error del proovedor externo: {remoteError}";
+                return RedirectToAction("Login", routeValues: new { mensaje });
+            }
+
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info is null)
+            {
+                mensaje = "Error al obtener la información del inicio de sesión externo.";
+                return RedirectToAction("Login", routeValues: new { mensaje });
+            }
+
+            var resultadoLoginExterno = await signInManager
+                .ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor: true);
+
+            //La cuenta existe
+            if (resultadoLoginExterno.Succeeded)
+            {
+                return LocalRedirect(urlRetorno);
+            }
+
+            string email = "";
+
+            if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
+            {
+                email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            }
+            else
+            {
+                mensaje = "El proovedor externo no ha proporcionado un correo electrónico.";
+                return RedirectToAction("Login", routeValues: new { mensaje });
+            }
+
+            var usuario = new IdentityUser { Email = email, UserName = email };
+
+            var resultadoCreacionUsuario = await userManager.CreateAsync(usuario);
+
+            if (!resultadoCreacionUsuario.Succeeded)
+            {
+                mensaje = resultadoCreacionUsuario.Errors.First().Description;
+                return RedirectToAction("Login", routeValues: new { mensaje });
+            }
+
+            var resultadoAgregarLogin = await userManager.AddLoginAsync(usuario, info);
+
+            if (resultadoAgregarLogin.Succeeded)
+            {
+                await signInManager.SignInAsync(usuario, isPersistent: true, info.LoginProvider);
+                return LocalRedirect(urlRetorno);
+            }
+            
+            {
+                mensaje = "Ha ocurrido un error agregando el login";
+                return RedirectToAction("Login", routeValues: new { mensaje });
+
+            }
         }
     }
 }

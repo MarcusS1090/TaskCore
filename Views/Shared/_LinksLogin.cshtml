@@ -5,7 +5,7 @@
 	@if (signInManager.IsSignedIn(User))
 	{
 		<li class="nav-item">
-			<span class="nav-link text-dark"> Hola, @User.Identity.Name!</span>
+			<span class="nav-link text-dark"> Hola, @User.Identity.Name</span>
 		</li>
 		<li class="nav-item">
 			<form class="form-check-inline" asp-action="logout" asp-controller="usuarios">
