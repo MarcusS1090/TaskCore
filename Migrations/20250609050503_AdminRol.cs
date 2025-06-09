@@ -16,7 +16,6 @@ namespace TaskCore.Migrations
 
                 INSERT AspNetRoles (Id, [Name], [NormalizedName])
                 VALUES ('c2a7e6f9-635e-43b9-baae-68b7e08f13be','admin', 'ADMIN')
-
                 END
             ");
         }

@@ -1,20 +1,22 @@
-﻿@model UsuariosListadoViewModel
+﻿
+@model UsuariosListadoViewModel
 
 @{
 	ViewData["Title"] = "Listado de Usuarios";
-	Layout = "../shared/_layout";
-
+	Layout = "../shared/_Layout";
 }
+
 <h1>Listado de usuarios</h1>
+
 
 @if (Model.Mensaje is not null)
 {
-	<div class="alert alet-success" role="alert">
+	<div class="alert alert-danger">
 		@Model.Mensaje
-	</div>	
+	</div>
 }
 
-@if (Model.Mensaje is not null)
+@if (Model.Usuarios is not null)
 {
 	<form method="post">
 		<table class="table table-hover">
@@ -29,12 +31,10 @@
 				{
 					<tr>
 						<td>
-							<button class="btn btn-primary me-2"
-								asp-action="HacerAdmin" asp-route-email="@usuario.Email">
-									Hacer Administrador
+							<button class="btn btn-primary me-2 mb-2 mx-2" asp-action="HacerAdmin" asp-route-email="@usuario.Email">
+								Hacer Administrador
 							</button>
-							<button class="btn btn-danger me-2"
-									asp-action="RemoverAdmin" asp-route-email="@usuario.Email">
+							<button class="btn btn-danger me-2 mb-2 mx-2" asp-action="RemoverAdmin" asp-route-email="@usuario.Email">
 								Remover Administrador
 							</button>
 						</td>
@@ -46,8 +46,9 @@
 			</tbody>
 		</table>
 	</form>
-}
-else
+} else 
 {
-	<p> No hay usuarios para mostrar.</p>	
+	<div class="alert alert-info">
+		No hay usuarios registrados.
+	</div>
 }

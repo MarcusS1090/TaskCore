@@ -158,9 +158,9 @@ namespace TaskCore.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Listado(string mensaje = null) 
-        {
-            var usuarios = await context.Users.Select(u => new UsuarioViewModel
+        public async Task<IActionResult> Listado(string mensaje = null)
+        { 
+            var usuarios = await context.Users.Select(u => new UsuarioViewModel 
             {
                 Email = u.Email
             }).ToListAsync();
