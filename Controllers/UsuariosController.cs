@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TaskCore.Models;
 
 namespace TaskCore.Controllers
@@ -11,12 +12,14 @@ namespace TaskCore.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
+        private readonly ApplicationDbContext context;
 
         public UsuariosController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager, ApplicationDbContext context)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.context = context;
         }
 
         [AllowAnonymous]
@@ -150,12 +153,24 @@ namespace TaskCore.Controllers
                 await signInManager.SignInAsync(usuario, isPersistent: true, info.LoginProvider);
                 return LocalRedirect(urlRetorno);
             }
-            
-            {
-                mensaje = "Ha ocurrido un error agregando el login";
-                return RedirectToAction("Login", routeValues: new { mensaje });
-
-            }
+            mensaje = "Ha ocurrido un error agregando el login";
+            return RedirectToAction("Login", routeValues: new { mensaje });
         }
-    }
+
+        [HttpGet]
+        public async Task<IActionResult> Listado(string mensaje = null) 
+        {
+            var usuarios = await context.Users.Select(u => new UsuarioViewModel
+            {
+                Email = u.Email
+            }).ToListAsync();
+
+            var modelo = new UsuariosListadoViewModel
+            {
+                Usuarios = usuarios,
+                Mensaje = mensaje
+            };
+            return View(modelo);
+        }
+    }    
 }
