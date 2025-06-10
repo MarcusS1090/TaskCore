@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Buenos días" xml:space="preserve">
-    <value>Good morning</value>
+  <data name="Bienvenido" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="Aprende acerca de &lt;a href=&quot;https://learn.microsoft.com/aspnet/core&quot;&gt; Construir aplicaciones web con ASP.Net Core&lt;/a&gt;" xml:space="preserve">
+    <value>Learn about &lt;a href="https://learn.microsoft.com/aspnet/core"&gt;building Web apps with ASP.NET Core&lt;/a&gt;.</value>
   </data>
 </root>

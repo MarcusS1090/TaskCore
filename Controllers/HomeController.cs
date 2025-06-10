@@ -18,7 +18,7 @@ namespace TaskCore.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Saludo = localizer["Buenas tardes"];
+            ViewBag.Saludo = localizer["Buenos días"];
             return View();
         }
 

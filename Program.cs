@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using TaskCore;
 
@@ -16,8 +17,8 @@ var politicaUsuariosAutenticados = new AuthorizationPolicyBuilder()
 // Add services to the container.
 builder.Services.AddControllersWithViews(opciones =>
 {
-    opciones.Filters.Add(new AuthorizeFilter(politicaUsuariosAutenticados)); 
-});
+    opciones.Filters.Add(new AuthorizeFilter(politicaUsuariosAutenticados));
+}).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
 //Configurando el ApplicationDbContext como un servicio.
 builder.Services.AddDbContext<ApplicationDbContext>(opciones => opciones.UseSqlServer("name=DefaultConnection"));
@@ -55,11 +56,9 @@ var app = builder.Build();
 var culturasUISoportadas = new[] { "es", "en" };
 
 app.UseRequestLocalization(opciones =>
-
 {
-    opciones.DefaultRequestCulture = new RequestCulture("es");  // ESTA ES LA CULTURA POR DEFECTO.
-    opciones.SupportedUICultures = culturasUISoportadas
-        .Select(cultura => new CultureInfo(cultura)).ToList();
+    opciones.DefaultRequestCulture = new RequestCulture("es"); //cultura por defecto
+    opciones.SupportedUICultures = culturasUISoportadas.Select(cultura => new CultureInfo(cultura)).ToList();
 });
 
 // Configure the HTTP request pipeline.
