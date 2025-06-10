@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace TaskCore.Entidades
 {
@@ -16,5 +17,7 @@ namespace TaskCore.Entidades
         //
         public List<Paso> Pasos { get; set; }
         public List<ArchivoAdjunto> ArchivosAdjuntos { get; set; }
+        public string UsuarioCreacionId { get; set; }
+        public IdentityUser UsuarioCreacion { get; set; }
     }
 }

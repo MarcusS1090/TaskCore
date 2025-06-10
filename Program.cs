@@ -1,12 +1,15 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TaskCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Servicios de autentificacion------------------------------------------------------------------------------------------------------------
 // Add services to the container Only user Authenticated.
 var politicaUsuariosAutenticados = new AuthorizationPolicyBuilder()
     .RequireAuthenticatedUser().Build();
@@ -40,7 +43,24 @@ builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.Ap
         opciones.AccessDeniedPath = "/usuarios/Login";
     });
 
+//----------------------------------------------------------------------------------------------------------------------------------------
+//Servicio para la localizacion de idiomas/culturas
+builder.Services.AddLocalization(opciones =>
+{
+    opciones.ResourcesPath = "Recursos";
+});
+
 var app = builder.Build();
+
+var culturasUISoportadas = new[] { "es", "en" };
+
+app.UseRequestLocalization(opciones =>
+
+{
+    opciones.DefaultRequestCulture = new RequestCulture("es");  // ESTA ES LA CULTURA POR DEFECTO.
+    opciones.SupportedUICultures = culturasUISoportadas
+        .Select(cultura => new CultureInfo(cultura)).ToList();
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
