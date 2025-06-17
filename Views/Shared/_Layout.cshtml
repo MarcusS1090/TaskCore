@@ -1,4 +1,6 @@
-﻿@using TaskCore.Servicios
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using TaskCore.Servicios
+@inject IViewLocalizer localizer;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,14 +25,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@localizer["Inicio"]</a>
                         </li>
 
                         @if(User.IsInRole(Constantes.RolAdmin))
                         {
                             
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Listado">Listado de usuarios</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Listado">@localizer["Listado de usuarios"]</a>
                         </li>
 
                         }
@@ -49,5 +51,15 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+<footer class="border-top footer text-muted">
+      <div class="container d-fex" style="justify-content: space-between">
+          <div>
+                &copy; 2025 - TaskCore - <a asp-area="" asp-controller="Home" asp-action="Index">@localizer["Inicio"]</a>
+          </div>
+          <partial name="_CambiarIdioma"></partial>
+      </div>
+</footer>
 </body>
+<partial name="_TraduccionesJS"></partial>
 </html>

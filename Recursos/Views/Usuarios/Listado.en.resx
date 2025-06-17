@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bienvenido" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="Listado de usuarios" xml:space="preserve">
+    <value>User list</value>
+  </data>
+  <data name="Acción" xml:space="preserve">
+    <value>Acción</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Hacer Administrador" xml:space="preserve">
+    <value>Make Administrator</value>
+  </data>
+  <data name="Remover Administrador" xml:space="preserve">
+    <value>Remove Administrator</value>
+  </data>
+  <data name="No hay usuarios registrados." xml:space="preserve">
+    <value>There are no registered users.</value>
   </data>
 </root>

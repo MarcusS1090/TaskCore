@@ -117,7 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bienvenido" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="Ingresa tu correo electrónico" xml:space="preserve">
+    <value>Ingresa tu correo electrónico</value>
+  </data>
+  <data name="Correo Electrónico" xml:space="preserve">
+    <value>Correo Electrónico</value>
+  </data>
+  <data name="Simplifica tu productividad con una herramienta moderna para gestionar tus tareas." xml:space="preserve">
+    <value>Simplifica tu productividad con una herramienta moderna para gestionar tus tareas.</value>
+  </data>
+  <data name="¡Inicia Sesion en tu cuenta!" xml:space="preserve">
+    <value>¡Inicia Sesion en tu cuenta!</value>
+  </data>
+  <data name="Contraseña" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="Ingresa tu contraseña" xml:space="preserve">
+    <value>Ingresa tu contraseña</value>
+  </data>
+  <data name="Recuerdame" xml:space="preserve">
+    <value>Recuerdame</value>
+  </data>
+  <data name="Iniciar Sesion" xml:space="preserve">
+    <value>Iniciar Sesion</value>
+  </data>
+  <data name="¿No tienes una cuenta?" xml:space="preserve">
+    <value>¿No tienes una cuenta?</value>
+  </data>
+  <data name="Registrarse" xml:space="preserve">
+    <value>Registrarse</value>
+  </data>
+  <data name="Microsoft" xml:space="preserve">
+    <value>Microsoft</value>
   </data>
 </root>

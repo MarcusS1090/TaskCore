@@ -1,4 +1,7 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer localizer;
+
 @model UsuariosListadoViewModel
 
 @{
@@ -6,7 +9,7 @@
 	Layout = "../shared/_Layout";
 }
 
-<h1>Listado de usuarios</h1>
+<h1>@localizer["Listado de usuarios"]</h1>
 
 
 @if (Model.Mensaje is not null)
@@ -22,8 +25,8 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<td>Accion</td>
-					<td>Email</td>
+					<td>@localizer["Acción"]</td>
+					<td>@localizer["Email"]</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,10 +35,10 @@
 					<tr>
 						<td>
 							<button class="btn btn-primary me-2 mb-2 mx-2" asp-action="HacerAdmin" asp-route-email="@usuario.Email">
-								Hacer Administrador
+                                @localizer["Hacer Administrador"]
 							</button>
 							<button class="btn btn-danger me-2 mb-2 mx-2" asp-action="RemoverAdmin" asp-route-email="@usuario.Email">
-								Remover Administrador
+                                @localizer["Remover Administrador"]
 							</button>
 						</td>
 						<td>
@@ -49,6 +52,6 @@
 } else 
 {
 	<div class="alert alert-info">
-		No hay usuarios registrados.
+        @localizer["No hay usuarios registrados."]
 	</div>
 }
