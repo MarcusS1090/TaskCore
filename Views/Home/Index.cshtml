@@ -2,6 +2,10 @@
 
 @inject IViewLocalizer localizer;
 
+
+@{
+    ViewData["Title"] = localizer["Listado de tareas"];
+}
 <div class="text-center">
     <h1 class="display-4">
         @localizer["Mis tareas"]
@@ -16,17 +20,39 @@
             </div>
         </div>
     </div>
+
+    <div data-bind="visible: cargando" class="spinner-border">
+        <span class="visually-hidden">@localizer["Cargando..."]</span>
+    </div>
+
+    <div data-bind="visible: noHayTareas">
+        @localizer["No hay tareas para mostrar."]
 </div>
 
 
 @section Scripts {
     <script>
-        const tareaListadoViewModel = {
-            tareas: ko.observableArray([
-                {titulo:'Tarea 1'},
-                {titulo:'Tarea 2'},
-            ]),
+        function tareaListadoViewModelFn() {
+            var self = this;
+            self.tareas = ko.observableArray([]);
+            self.cargando = ko.observable(true);
+
+            self.noHayTareas = ko.pureComputed(function() {
+                if(self.cargando()) {
+                    return false;
+                }
+
+                return self.tareas().length === 0;
+            });
         }
+
+        const tareaListadoViewModel = new tareaListadoViewModelFn();
+
+        setTimeout(() => {
+            //se ejecutara luego de 2 segundos
+            //tareaListadoViewModel.tareas.push({titulo: "tarea1"});
+            tareaListadoViewModel.cargando(false);
+        },2000)
 
         ko.applyBindings(tareaListadoViewModel, document.getElementById('contenedor-listado-tareas'));
     </script>
