@@ -31,3 +31,4 @@ setTimeout(() => {
 }, 500)
 
 ko.applyBindings(tareaListadoViewModel, document.getElementById('contenedor-listado-tareas'));
+
