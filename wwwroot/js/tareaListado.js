@@ -1,4 +1,6 @@
-﻿function tareaListadoViewModelFn() {
+﻿const urlTareas = "/api/tareas";
+
+function tareaListadoViewModelFn() {
     var self = this;
     self.tareas = ko.observableArray([]);
     self.cargando = ko.observable(true);
@@ -24,11 +26,7 @@ function tareaElementoListadoViewModel({ id, titulo }) {
 
 const tareaListadoViewModel = new tareaListadoViewModelFn();
 
-setTimeout(() => {
-    //se ejecutara luego de 2 segundos
-
-    tareaListadoViewModel.cargando(false);
-}, 500)
+obtenerTareas();
 
 ko.applyBindings(tareaListadoViewModel, document.getElementById('contenedor-listado-tareas'));
 
