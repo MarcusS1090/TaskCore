@@ -47,22 +47,20 @@
             @RenderBody()
         </main>
     </div>
+
+    <footer class="border-top footer text-muted">
+          <div class="container d-fex" style="justify-content: space-between">
+              <div>
+                    &copy; 2025 - TaskCore - <a asp-area="" asp-controller="Home" asp-action="Index">@localizer["Inicio"]</a>
+              </div>
+              <partial name="_CambiarIdioma"></partial>
+          </div>
+    </footer>
+    <partial name="_TraduccionesJS" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
-<footer class="border-top footer text-muted">
-      <div class="container d-fex" style="justify-content: space-between">
-          <div>
-                &copy; 2025 - TaskCore - <a asp-area="" asp-controller="Home" asp-action="Index">@localizer["Inicio"]</a>
-          </div>
-          <partial name="_CambiarIdioma"></partial>
-      </div>
-</footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
 </body>
-<partial name="_TraduccionesJS"></partial>
 </html>
