@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskCore.Entidades;
+using TaskCore.Models;
 using TaskCore.Servicios;
 
 namespace TaskCore.Controllers
 {
     [Route("api/tareas")]
-    public class TareasController: ControllerBase
+    public class TareasController : ControllerBase
     {
         private readonly ApplicationDbContext context;
         private readonly IServicioUsuarios servicioUsuarios;
@@ -18,10 +19,20 @@ namespace TaskCore.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Tarea>> Get()
+        public async Task<List<TareaDTO>> Get()
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
-           return await context.Tareas.Where(t => t.UsuarioCreacionId == usuarioId).ToListAsync();
+           var tareas = await context.Tareas
+                .Where(t => t.UsuarioCreacionId == usuarioId)
+                .OrderBy(t => t.Orden)
+                .Select(t => new TareaDTO
+                { 
+                   Id = t.Id,
+                   Titulo = t.Titulo,
+                })
+                .ToListAsync();
+
+            return tareas;
         }
 
         [HttpPost]
