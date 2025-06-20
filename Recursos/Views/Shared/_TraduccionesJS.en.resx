@@ -120,6 +120,9 @@
   <data name="errorInesperado" xml:space="preserve">
     <value>An error has occurred with your request</value>
   </data>
+  <data name="PreguntaParaEliminar" xml:space="preserve">
+    <value>¿Are you sure you want to delete this task? this can't be undo</value>
+  </data>
   <data name="recursoNoEncontrado" xml:space="preserve">
     <value>The requested resource was not found</value>
   </data>

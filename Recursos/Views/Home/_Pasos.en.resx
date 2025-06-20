@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="errorInesperado" xml:space="preserve">
-    <value>Ha ocurrido un error con su solicitud</value>
+  <data name="Agregue una descripción" xml:space="preserve">
+    <value>Add a description</value>
   </data>
-  <data name="PreguntaParaEliminar" xml:space="preserve">
-    <value>¿Está seguro de que desea eliminar este tarea? esto no se puede deshacer</value>
+  <data name="Pasos" xml:space="preserve">
+    <value>Steps</value>
   </data>
-  <data name="recursoNoEncontrado" xml:space="preserve">
-    <value>El recurso solicitado no fue encontrado</value>
+  <data name="Pasos de la tarea" xml:space="preserve">
+    <value>Task steps</value>
   </data>
 </root>
