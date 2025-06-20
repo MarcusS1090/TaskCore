@@ -24,6 +24,12 @@ function tareaElementoListadoViewModel({ id, titulo }) {
     });
 }
 
+const tareaEditarViewModel = {
+    id: 0,
+    titulo: ko.observable(''),
+    descripcion: ko.observable(''),
+}
+
 const tareaListadoViewModel = new tareaListadoViewModelFn();
 
 obtenerTareas();

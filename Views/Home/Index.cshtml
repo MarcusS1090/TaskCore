@@ -16,12 +16,15 @@
 </div>
 
 <div id="contenedor-listado-tareas" class="text-center">
-    <div class="text-start" data-bind="foreach: tareas">
-        <div name="tarea" class="border mb-2 p-2" style="cursor: pointer">
+    <div id="reordenable" class="text-start" data-bind="foreach: tareas">
+        <div name="tarea" class="border mb-2 p-2" style="cursor: pointer"
+             data-bind="click: manejarClickTarea">
             <div data-bind="text: titulo, hidden: esNuevo" class="fw-bold">
             </div>
             <input type="text" class="form-text" name="titulo-tarea" autocomplete="off" 
-            data-bind="value: titulo, visible: esNuevo, event: {focusout: manejarFocusoutTituloTarea}" />
+            data-bind="value: titulo, visible: esNuevo,
+            attr: {'data-id': id},
+            event: {focusout: manejarFocusoutTituloTarea}" />
         </div>
     </div>
 
@@ -36,8 +39,10 @@
 
 
 @section Scripts {
+    <script src="~/js/Tareas/mostrarTodaLaTarea.js"></script>
+    <script src="~/js/Tareas/OrdenTareas.js"></script>
     <script src="~/js/Utilidades.js" asp-append-version="true"></script>
-    <script src="~/js/tareas.js" asp-append-version="true"></script>
-    <script src="~/js/tareaListado.js" asp-append-version="true"></script>
-    <script src="~/js/manejarFocusoutTituloTarea.js" asp-append-version="true"></script>
+    <script src="~/js/Tareas/tareas.js" asp-append-version="true"></script>
+    <script src="~/js/Tareas/tareaListado.js" asp-append-version="true"></script>
+    <script src="~/js/Tareas/manejarFocusoutTituloTarea.js" asp-append-version="true"></script>
 }
