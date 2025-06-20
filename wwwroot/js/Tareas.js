@@ -18,7 +18,7 @@
         tarea.id(json.id);
 
     } else {
-
+        manejarErrorApi(respuesta);
     }
 }
 
@@ -33,7 +33,8 @@ async function obtenerTareas() {
     });
 
     if (!respuesta.ok) {
-        return;
+        manejarErrorApi(respuesta);
+        return
     }
 
     const json = await respuesta.json();
