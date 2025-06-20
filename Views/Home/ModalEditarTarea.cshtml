@@ -19,18 +19,22 @@
                     <div class="col-lg-9">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="txtTituloCrearTarea" 
-                            placeholder="@localizer["titulo"]" data-bind="value: titulo" />
-                            <label for="txtTituloCrearTarea">@localizer["Titulo de la tarea"]</label>
+                            placeholder="@localizer["titulo"]"
+                            autocomplete="off"
+                            data-bind="value: titulo, event: {change: manejarCambioEditarTarea}" />
+                            <label for="txtTituloCrearTarea">@localizer["Título de la tarea"]</label>
                         </div>
                         <div class="mb-3">
                             <label>@localizer["Descripción"]</label>
-                            <textarea type="text" class="form-control" rows="4" data-bind="value: descripcion">
+                            <textarea type="text" class="form-control" rows="4"
+                                      data-bind="value: descripcion,  event: {change: manejarCambioEditarTarea}">
 
                             </textarea>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <button class="btn btn-danger mb-2 w-100 text-start">
+                        <button data-bind="{click: intentarBorrarTarea}"
+                        class="btn btn-danger m-auto w-auto text-center">
                             <i class="bi bi-trash3"></i>
                             @localizer["Eliminar tarea"]
                         </button>

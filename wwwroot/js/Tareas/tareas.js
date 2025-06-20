@@ -46,4 +46,3 @@ async function obtenerTareas() {
 
     tareaListadoViewModel.cargando(false);
 }
-

@@ -80,8 +80,43 @@ namespace TaskCore.Controllers
             return tarea;
         }
 
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> EditarTarea(int id, [FromBody] TareaEditarDTO tareaEditarDTO)
+        { 
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+
+            var tarea = await context.Tareas.FirstOrDefaultAsync(t => t.Id == id && t.UsuarioCreacionId == usuarioId);
+
+            if (tarea == null) 
+            {
+                return NotFound();
+            }
+
+            tarea.Titulo = tareaEditarDTO.Titulo;
+            tarea.Descripcion = tareaEditarDTO.Descripcion;
+
+            await context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+            var tarea = await context.Tareas.FirstOrDefaultAsync(t => t.Id == id && t.UsuarioCreacionId == usuarioId);
+            if (tarea == null)
+            {
+                return NotFound();
+            }
+            context.Remove(tarea);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
         [HttpPost("ordenar")]
-        public async Task<IActionResult> Ordenar([FromBody] int[] ids) { 
+        public async Task<IActionResult> Ordenar([FromBody] int[] ids) 
+        { 
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
 
             var tareas = await context.Tareas.Where(t => t.UsuarioCreacionId == usuarioId).ToListAsync();

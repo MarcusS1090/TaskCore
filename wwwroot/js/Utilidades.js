@@ -20,3 +20,22 @@ function mostrarMensajeError(mensaje) {
         text: mensaje,
     });
 }
+
+function confirmarAccion({ callBackAceptar, callBackCancelar, titulo }) {
+    Swal.fire({
+        title: titulo || '¿Estas seguro de esta acción? No se podra rehacer',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#005CFF',
+        cancelButtonColor: '#FF0000',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        focusConfirm: true,
+    }).then((resultado) => {
+        if (resultado.isConfirmed) {
+            callBackAceptar();
+        } else if (callBackCancelar) {
+            callBackCancelar();
+        }
+    });
+}
