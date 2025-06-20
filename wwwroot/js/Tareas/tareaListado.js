@@ -1,5 +1,8 @@
 ﻿const urlTareas = "/api/tareas";
 
+const modalEditarTarea = document.getElementById('modal-editar-tarea');
+const modalEditarTareaBootstrap = new bootstrap.Modal(modalEditarTarea);
+
 function tareaListadoViewModelFn() {
     var self = this;
     self.tareas = ko.observableArray([]);
@@ -35,4 +38,5 @@ const tareaListadoViewModel = new tareaListadoViewModelFn();
 obtenerTareas();
 
 ko.applyBindings(tareaListadoViewModel, document.getElementById('contenedor-listado-tareas'));
+ko.applyBindings(tareaEditarViewModel, document.getElementById('modal-editar-tarea'));
 

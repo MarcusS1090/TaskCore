@@ -46,3 +46,8 @@ body {
 .imagen-container-2 {
     background-image: url("/image/Logo inicio sesion.svg");
 }
+
+[name=tarea]:hover {
+    background-color: lightcyan;
+
+}

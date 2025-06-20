@@ -15,9 +15,10 @@
     }
 
     const json = await respuesta.json();
-    console.log(json);
-
+    
     tareaEditarViewModel.id = json.id;
     tareaEditarViewModel.titulo(json.titulo);
     tareaEditarViewModel.descripcion(json.descripcion);
+
+    modalEditarTareaBootstrap.show();
 }
