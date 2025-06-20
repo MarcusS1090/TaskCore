@@ -1,5 +1,6 @@
 ﻿const urlTareas = "/api/tareas";
 
+
 const modalEditarTarea = document.getElementById('modal-editar-tarea');
 const modalEditarTareaBootstrap = new bootstrap.Modal(modalEditarTarea);
 
