@@ -4,8 +4,21 @@
     const idTarea = tareaEditarViewModel.id;
     const data = obtenerCuerpoPetcionPaso(paso);
 
+    const descripcion = paso.descripcion();
+
+    if (!descripcion) {
+        paso.descripcion(paso.descripcionAnterior);
+
+        if (esNuevo) {
+            tareaEditarViewModel.pasos.pop();
+        }
+        return;
+    }
+
     if (esNuevo) {
         await insertarPaso(paso, data, idTarea);
     } else {
+        actualizarPaso(paso, data);
     }
 }
+

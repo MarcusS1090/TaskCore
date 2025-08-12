@@ -7,6 +7,7 @@
     var self = this;
     self.id = ko.observable(id || 0);
     self.descripcion = ko.observable(descripcion || '');
+    self.descripcionAnterior = '';
     self.realizado = ko.observable(realizado);
     self.modoEdicion = ko.observable(modoEdicion);
 
@@ -36,6 +37,6 @@ async function insertarPaso(paso, data, idTarea) {
         const json = await respuesta.json();
         paso.id(json.id);
     } else {
-        manejarErrorApi(respuesta, 'Error al insertar el paso');
+        manejarErrorApi(respuesta);
     }
 }
