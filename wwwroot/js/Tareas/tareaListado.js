@@ -17,13 +17,23 @@ function tareaListadoViewModelFn() {
     });
 }
 
-function tareaElementoListadoViewModel({ id, titulo }) {
+function tareaElementoListadoViewModel({ id, titulo, pasosTotal, pasosRealizados }) {
     var self = this;
     self.id = ko.observable(id);
     self.titulo = ko.observable(titulo);
 
+    self.pasosTotal = ko.observable(pasosTotal);
+    self.pasosRealizados = ko.observable(pasosRealizados);
+
+
     self.esNuevo = ko.pureComputed(function () {
         return self.id() == 0;
+    });
+
+    self.porcentajeCompletado = ko.pureComputed(function () {
+        const calculo = Math.round(self.pasosRealizados() * 1.0 / self.pasosTotal() * 100);
+
+        return `(${calculo} %)`;
     });
 }
 

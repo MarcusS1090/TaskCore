@@ -46,3 +46,11 @@ async function obtenerTareas() {
 
     tareaListadoViewModel.cargando(false);
 }
+
+function obtenerIndiceTareaEdicion() {
+    return tareaListadoViewModel.tareas().findIndex(t => t.id() == tareaEditarViewModel.id)
+}
+function obtenerTareaEnEdicion() {
+    const indice = obtenerIndiceTareaEdicion();
+    return tareaListadoViewModel.tareas()[indice];
+}

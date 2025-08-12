@@ -7,9 +7,7 @@
     ViewData["Title"] = localizer["Listado de tareas"];
 }
 <div class="text-center">
-    <h1 class="display-4">
-        @localizer["Mis tareas"]
-    </h1>
+    <h1 class="display-4">@localizer["Mis tareas"]</h1>
     <button type="button" class="btn btn-primary mb-3" onclick="agregarNuevaTareaAlListado()">
         @localizer["Agregar nueva tarea"]
     </button>
@@ -21,10 +19,21 @@
              data-bind="click: manejarClickTarea">
             <div data-bind="text: titulo, hidden: esNuevo" class="fw-bold">
             </div>
-            <input type="text" class="form-text" name="titulo-tarea" autocomplete="off" 
-            data-bind="value: titulo, visible: esNuevo,
-            attr: {'data-id': id},
-            event: {focusout: manejarFocusoutTituloTarea}" />
+
+            <div name="pasos-resumen" data-bind="visible: pasosTotal() > 0">
+                <span data-bind="text: pasosRealizados">
+                </span>/<span data-bind="text: pasosTotal">
+                </span>
+                <span data-bind="text: porcentajeCompletado">
+
+                </span>
+            </div>
+
+            <input type="text" name="titulo-tarea" autocomplete="off"
+                   data-bind="value: titulo, visible: esNuevo,
+                    attr: {'data-id': id},
+                    event: {focusout: manejarFocusoutTituloTarea}" />
+
         </div>
     </div>
 
@@ -35,27 +44,24 @@
     <div data-bind="visible: noHayTareas">
         @localizer["No hay tareas para mostrar."]
     </div>
+
 </div>
 <partial name="ModalEditarTarea" />
 
 @section Scripts {
-   <script>
-   //    const tareaEditarVM = {
-   //        id: 0,
-   //        titulo: ko.observable(''),
-   //        descripcion: ko.observable(''),
-   //        pasos: ko.observableArray([]),
-   //    }
-   </script>
+
+
    <script>
         const urlPasos = "/api/pasos";
    </script>
+    <script src="~/js/Pasos/pasos.js" asp-append-version="true"></script>
     <script src="~/js/Pasos/actualizarPaso.js" asp-append-version="true"></script>
+    <script src="~/js/Pasos/manejarClickBorrarPaso.js" asp-append-version="true"></script>
+    <script src="~/js/Pasos/manejarClickCheckboxPasos.js" asp-append-version="true"></script>
     <script src="~/js/Pasos/manejarClickDescripcionPaso.js" asp-append-version="true"></script>
     <script src="~/js/Pasos/manejarClickSalvarPaso.js" asp-append-version="true"></script>
     <script src="~/js/Pasos/manejarClickCancelarPaso.js" asp-append-version="true"></script>
     <script src="~/js/Pasos/manejarClickAgregarPaso.js" asp-append-version="true"></script>
-    <script src="~/js/Pasos/pasos.js" asp-append-version="true"></script>
     <script src="~/js/Tareas/BorrarTareas.js" asp-append-version="true"></script>
     <script src="~/js/Tareas/editarTareas.js" asp-append-version="true"></script>
     <script src="~/js/Tareas/mostrarTodaLaTarea.js" asp-append-version="true"></script>

@@ -120,6 +120,9 @@
   <data name="Agregue una descripción" xml:space="preserve">
     <value>Add a description</value>
   </data>
+  <data name="Borrar" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="Cancelar" xml:space="preserve">
     <value>Cancel</value>
   </data>

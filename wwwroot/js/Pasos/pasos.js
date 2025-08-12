@@ -1,4 +1,6 @@
-﻿function pasoViewModel({
+﻿
+
+function pasoViewModel({
     id,
     descripcion,
     realizado,
@@ -36,7 +38,38 @@ async function insertarPaso(paso, data, idTarea) {
     if (respuesta.ok) {
         const json = await respuesta.json();
         paso.id(json.id);
+
+        const tarea = obtenerTareaEnEdicion();
+
+        if (tarea && typeof tarea.pasosTotal === 'function') {
+            tarea.pasosTotal(tarea.pasosTotal() + 1);
+        }
+
+        if (paso.realizado() && tarea && typeof tarea.pasosRealizados === 'function') {
+            tarea.pasosRealizados(tarea.pasosRealizados() + 1);
+        }
     } else {
         manejarErrorApi(respuesta);
+    }
+}
+
+async function borrarPaso(paso) {
+    const respuesta = await fetch(`${urlPasos}/${paso.id()}`, {
+        method: 'DELETE',
+    });
+
+    if (!respuesta.ok) {
+        manejarErrorApi(respuesta);
+        return;
+    }
+
+
+    tareaEditarViewModel.pasos.remove(function (item) { return item.id() == paso.id() });
+    const tarea = obtenerTareaEnEdicion();
+
+    tarea.pasosTotal(tarea.pasosTotal() - 1);
+
+    if (paso.realizado()) {
+        tarea.pasosRealizados(tarea.pasosRealizados() - 1);
     }
 }

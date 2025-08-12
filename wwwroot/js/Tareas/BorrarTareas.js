@@ -15,9 +15,6 @@ async function borrarTarea(tarea) {
     }
 }
 
-function obtenerIndiceTareaEdicion() {
-    return tareaListadoViewModel.tareas().findIndex(t => t.id == tareaEditarViewModel.id);
-}
 
 function intentarBorrarTarea(tarea) {
     modalEditarTareaBootstrap.hide();
