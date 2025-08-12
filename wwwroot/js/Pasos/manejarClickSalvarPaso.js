@@ -18,7 +18,8 @@
     if (esNuevo) {
         await insertarPaso(paso, data, idTarea);
     } else {
-        actualizarPaso(paso, data);
+        const id = paso.id();
+        await actualizarPaso(data, id);
     }
 }
 

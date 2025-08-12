@@ -7,7 +7,7 @@
         }
     });
 
-    if (respuesta.ok) {
+    if (!respuesta.ok) {
         manejarErrorApi(respuesta);
     } 
 
