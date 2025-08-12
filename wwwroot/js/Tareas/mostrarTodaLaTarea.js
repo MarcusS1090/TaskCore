@@ -20,5 +20,14 @@
     tareaEditarViewModel.titulo(json.titulo);
     tareaEditarViewModel.descripcion(json.descripcion);
 
+    tareaEditarViewModel.pasos([]);
+
+    json.pasos.forEach(paso => {
+        tareaEditarViewModel.pasos.push(new pasoViewModel({
+            ...paso,
+            modoEdicion: false
+        }));
+    })
+
     modalEditarTareaBootstrap.show();
 }

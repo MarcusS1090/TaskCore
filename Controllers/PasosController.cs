@@ -7,7 +7,7 @@ using TaskCore.Servicios;
 namespace TaskCore.Controllers
 {
     [Route("api/pasos")]
-    public class PasosController: ControllerBase
+    public class PasosController : ControllerBase
     {
         private readonly ApplicationDbContext context;
         private readonly IServicioUsuarios servicioUsuarios;
@@ -18,20 +18,18 @@ namespace TaskCore.Controllers
             this.context = context;
             this.servicioUsuarios = servicioUsuarios;
         }
-
         [HttpPost("{tareaId:int}")]
-        public async Task<ActionResult<Paso>> Post(int tareaId, [FromBody] PasoCrearDTO pasoCrearDTO)
-        {
+        public async Task<ActionResult<Paso>> Post(int tareaId, [FromBody] PasoCrearDTO pasoCrearDTO) 
+        { 
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
-
-            var tarea = await context.Tareas.FirstOrDefaultAsync(t => t.Id == tareaId);
+            var tarea = context.Tareas.FirstOrDefaultAsync(t => t.Id == tareaId);
 
             if (tarea is null)
-            {
+            { 
                 return NotFound();
             }
 
-            if (tarea.UsuarioCreacionId != usuarioId)
+            if (tarea.Result.UsuarioCreacionId != usuarioId) 
             {
                 return Forbid();
             }
@@ -39,12 +37,10 @@ namespace TaskCore.Controllers
             var existenPasos = await context.Pasos.AnyAsync(p => p.TareaId == tareaId);
 
             var ordenMayor = 0;
-
             if (existenPasos)
             {
-                ordenMayor = await context.Pasos
-                    .Where(p => p.TareaId == tareaId)
-                    .MaxAsync(p => p.Orden);
+                ordenMayor = await context.Pasos.Where(p => p.TareaId == tareaId)
+                    .Select(p => p.Orden).MaxAsync();
             }
 
             var paso = new Paso();
@@ -53,10 +49,10 @@ namespace TaskCore.Controllers
             paso.Descripcion = pasoCrearDTO.Descripcion;
             paso.Realizado = pasoCrearDTO.Realizado;
 
-            context.Pasos.Add(paso);
+            context.Add(paso);
             await context.SaveChangesAsync();
+            
             return paso;
         }
-
     }
 }

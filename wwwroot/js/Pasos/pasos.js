@@ -1,59 +1,41 @@
-﻿const urlPasos = "/api/pasos/";
+﻿function pasoViewModel({
+    id,
+    descripcion,
+    realizado,
+    modoEdicion
+}) {
+    var self = this;
+    self.id = ko.observable(id || 0);
+    self.descripcion = ko.observable(descripcion || '');
+    self.realizado = ko.observable(realizado);
+    self.modoEdicion = ko.observable(modoEdicion);
 
-function manejarClickAgregarPaso() {
-
-    const indice = tareaEditarViewModel.pasos().findIndex(p => p.esNuevo());
-
-    if (indice !== -1) {
-        return;
-    }
-
-    tareaEditarViewModel.pasos.push(new pasoViewModel({ modoEdicion: true, realizado: false }));
-    $("[name=txtPasoDescripcion]:visible").focus();
+    self.esNuevo = ko.pureComputed(function () {
+        return self.id() == 0;
+    });
 }
 
-function manejarClickCancelarPaso(paso) {
-    if (paso.esNuevo()) {
-        tareaEditarViewModel.pasos.pop();
-    } else {
 
-    }
-}
-
-async function manejarClickSalvarPaso(paso) {
-    paso.modoEdicion(false);
-    const esNuevo = paso.esNuevo();
-    const idTarea = tareaEditarViewModel.id;
-    const data = obtenerCuerpoPeticionPaso(paso);
-
-    if (esNuevo) {
-        await insertarPaso(paso, data, idTarea);
-
-    } else {
-
-    }
+function obtenerCuerpoPetcionPaso(paso) {
+    return JSON.stringify({
+        descripcion: paso.descripcion(),
+        realizado: paso.realizado(),
+    });
 }
 
 async function insertarPaso(paso, data, idTarea) {
     const respuesta = await fetch(`${urlPasos}/${idTarea}`, {
         body: data,
-        method: "POST",
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
-        },
+            'Content-Type': 'application/json',
+        }
     });
 
     if (respuesta.ok) {
         const json = await respuesta.json();
         paso.id(json.id);
     } else {
-        manejarErrorApi(respuesta);
+        manejarErrorApi(respuesta, 'Error al insertar el paso');
     }
-}
-
-function obtenerCuerpoPeticionPaso(paso) {
-    return JSON.stringify({
-        descripcion: paso.descripcion(),
-        realizado: paso.realizado(),
-    });
 }

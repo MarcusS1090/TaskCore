@@ -22,6 +22,10 @@ builder.Services.AddControllersWithViews(opciones =>
 }).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).
 AddDataAnnotationsLocalization(opciones => {
     opciones.DataAnnotationLocalizerProvider = (_, factoria) => factoria.Create(typeof(RecursoCompartido));
+}).AddJsonOptions(opciones =>
+{
+    // Configuring JSON options to use camel case for property names
+    opciones.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 });
 
 //Configurando el ApplicationDbContext como un servicio.

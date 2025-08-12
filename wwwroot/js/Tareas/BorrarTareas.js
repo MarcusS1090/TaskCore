@@ -1,4 +1,5 @@
-﻿async function borrarTarea(tarea) {
+﻿
+async function borrarTarea(tarea) {
     const idTarea = tarea.id;
 
     const respuesta = await fetch(`${urlTareas}/${idTarea}`, {
@@ -28,6 +29,6 @@ function intentarBorrarTarea(tarea) {
         callBackCancelar: () => {
             modalEditarTareaBootstrap.show();
         },
-        titulo: `¿Desea borrar la tarea ${tarea.titulo()}?`
+        titulo:[`¿Desea borrar la tarea ${tarea.titulo()}?`]
     });
 }

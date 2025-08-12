@@ -14,13 +14,16 @@
     <div class="mt-2">
         <div class="row">
             <div class="col-1">
-                <input type="checkbox" class="form-check-input" name="chbPaso" data-bind="{checked: realizado}" />
+                <input type="checkbox" class="form-check-input" name="chbPaso" 
+                       data-bind="{checked: realizado}" />
             </div>
             <div class="col-11">
-                <span data-bind="{text: descripcion, hidden: modoEdicion}"></span>
+                <span data-bind="{text: descripcion, hidden: modoEdicion}">
+                </span>
                 <textarea name="txtPasoDescripcion" class="form-control" 
                 placeholder="@localizer["Agregue una descripción"]" 
-                data-bind="{value: descripcion, visible: modoEdicion}"></textarea>
+                data-bind="{value: descripcion, visible: modoEdicion}">
+                </textarea>
 
                 <div class="mt-2" data-bind="{visible:modoEdicion}">
                     <button class="btn btn-success" type="button"

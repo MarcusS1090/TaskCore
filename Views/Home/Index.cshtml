@@ -39,7 +39,21 @@
 <partial name="ModalEditarTarea" />
 
 @section Scripts {
-    
+   <script>
+   //    const tareaEditarVM = {
+   //        id: 0,
+   //        titulo: ko.observable(''),
+   //        descripcion: ko.observable(''),
+   //        pasos: ko.observableArray([]),
+   //    }
+   </script>
+   <script>
+        const urlPasos = "/api/pasos";
+   </script>
+    <script src="~/js/Pasos/ListarPasos.js" asp-append-version="true"></script>
+    <script src="~/js/Pasos/manejarClickSalvarPaso.js" asp-append-version="true"></script>
+    <script src="~/js/Pasos/manejarClickCancelarPaso.js" asp-append-version="true"></script>
+    <script src="~/js/Pasos/manejarClickAgregarPaso.js" asp-append-version="true"></script>
     <script src="~/js/Pasos/pasos.js" asp-append-version="true"></script>
     <script src="~/js/Tareas/BorrarTareas.js" asp-append-version="true"></script>
     <script src="~/js/Tareas/editarTareas.js" asp-append-version="true"></script>

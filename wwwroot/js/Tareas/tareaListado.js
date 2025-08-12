@@ -1,6 +1,5 @@
 ﻿const urlTareas = "/api/tareas";
 
-
 const modalEditarTarea = document.getElementById('modal-editar-tarea');
 const modalEditarTareaBootstrap = new bootstrap.Modal(modalEditarTarea);
 
@@ -31,22 +30,9 @@ function tareaElementoListadoViewModel({ id, titulo }) {
 const tareaEditarViewModel = {
     id: 0,
     titulo: ko.observable(''),
-    descripcion: ko.observable(''),
+    descripcion: ko.observable(''), 
     pasos: ko.observableArray([]),
 }
-function pasoViewModel({ id, descripcion, realizado, modoEdicion }) {
-    var self = this;
-    self.id = ko.observable(id || 0);
-    self.descripcion = ko.observable(descripcion || '');
-    self.realizado = ko.observable(realizado);
-    self.modoEdicion = ko.observable(modoEdicion);
-
-    self.esNuevo = ko.computed(() => {
-        return self.id() === 0;
-    });
-
-}
-
 const tareaListadoViewModel = new tareaListadoViewModelFn();
 
 obtenerTareas();
