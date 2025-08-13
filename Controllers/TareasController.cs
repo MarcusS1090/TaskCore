@@ -41,8 +41,9 @@ namespace TaskCore.Controllers
         public async Task<ActionResult<Tarea>> Get(int id) { 
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var tarea = await context.Tareas
-                .Include(t => t.Pasos)
-                .FirstOrDefaultAsync(t => t.Id == id && t.UsuarioCreacionId == usuarioId);
+                .Include(t => t.Pasos.OrderBy(p => p.Orden))
+                .FirstOrDefaultAsync(t => t.Id == id &&
+                t.UsuarioCreacionId == usuarioId);
 
             if (tarea == null) 
             {
