@@ -42,6 +42,7 @@ const tareaEditarViewModel = {
     titulo: ko.observable(''),
     descripcion: ko.observable(''), 
     pasos: ko.observableArray([]),
+    archivosAdjuntos: ko.observableArray([]),
 }
 const tareaListadoViewModel = new tareaListadoViewModelFn();
 
