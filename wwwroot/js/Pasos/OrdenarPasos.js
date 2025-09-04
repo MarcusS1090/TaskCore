@@ -18,13 +18,17 @@ function obtenerIdsPasos() {
 
 async function enviarIdsPasosAlBackend(ids) {
     var data = JSON.stringify(ids);
-    await fetch(`${urlPasos}/ordenar/${tareaEditarViewModel.id}`, {
+    const respuesta =await fetch(`${urlPasos}/ordenar/${tareaEditarViewModel.id}`, {
         method: 'POST',
         body: data,
         headers: {
             'Content-Type': 'application/json'
         }
     });
+    if (!respuesta.ok) {
+        manejarErrorApi(respuesta);
+        return;
+    }
 }
 
 

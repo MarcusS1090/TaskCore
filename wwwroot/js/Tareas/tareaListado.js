@@ -17,10 +17,11 @@ function tareaListadoViewModelFn() {
     });
 }
 
-function tareaElementoListadoViewModel({ id, titulo, pasosTotal, pasosRealizados }) {
+function tareaElementoListadoViewModel({ id, titulo, descripcion, pasosTotal, pasosRealizados }) {
     var self = this;
     self.id = ko.observable(id);
     self.titulo = ko.observable(titulo);
+    self.descripcion = ko.observable(descripcion);
 
     self.pasosTotal = ko.observable(pasosTotal);
     self.pasosRealizados = ko.observable(pasosRealizados);

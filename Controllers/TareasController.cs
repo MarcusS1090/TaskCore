@@ -45,14 +45,16 @@ namespace TaskCore.Controllers
 
             var tarea = await context.Tareas
                 .Include(t => t.Pasos.OrderBy(p => p.Orden))
-                .Include(t => t.ArchivosAdjuntos.OrderBy(a => a.Orden))
+                .Include(t => t.ArchivosAdjuntos)
                 .FirstOrDefaultAsync(t => t.Id == id &&
                 t.UsuarioCreacionId == usuarioId);
 
-            if (tarea == null) 
+            if (tarea is null)
             {
                 return NotFound();
             }
+
+            tarea.ArchivosAdjuntos = tarea.ArchivosAdjuntos.OrderBy(a => a.Orden).ToList();
 
             return tarea;
         }

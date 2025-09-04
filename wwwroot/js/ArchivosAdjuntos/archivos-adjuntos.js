@@ -137,3 +137,45 @@ async function borrarArchivoAdjunto(archivoAdjunto) {
 function manejarClickDescargarArchivoAdjunto(archivoAdjunto) {
     descargarArchivo(archivoAdjunto.url, archivoAdjunto.titulo());
 }
+
+async function actualizarOrdenArchivos() {
+    const ids = obtenerIdsArchivos();
+    await enviarIdsArchivosAlBackend(ids);
+
+    tareaEditarViewModel.archivosAdjuntos.sort(function (a, b) {
+        return ids.indexOf(a.id.toString()) - ids.indexOf(b.id.toString());
+    });
+}
+
+function obtenerIdsArchivos() {
+    const ids = $("[name=txtArchivoAdjuntoTitulo]").map(function () {
+        return $(this).attr('data-id');
+    }).get();
+    return ids;
+}
+
+async function enviarIdsArchivosAlBackend(ids) {
+    var data = JSON.stringify(ids);
+   const respuesta = await fetch(`${urlArchivos}/ordenar/${tareaEditarViewModel.id}`, {
+        method: 'POST',
+        body: data,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+   });
+
+   if (!respuesta.ok) {
+        manejarErrorApi(respuesta);
+        return;
+   }
+}
+
+
+$(function () {
+    $("#reordenable-adjuntos").sortable({
+        axis: "y",
+        stop: async function () {
+            await actualizarOrdenArchivos();
+        }
+    })
+})

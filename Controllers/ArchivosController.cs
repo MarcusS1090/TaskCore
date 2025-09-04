@@ -117,5 +117,42 @@ namespace TaskCore.Controllers
             return Ok();
         }
 
+        [HttpPost("ordenar/{tareaId:int}")]
+        public async Task<IActionResult> Ordenar(int tareaId, [FromBody] Guid[] ids)
+        {
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+
+            var tarea = await context.Tareas.FirstOrDefaultAsync(t => t.Id == tareaId &&
+            t.UsuarioCreacionId == usuarioId);
+
+            if (tarea is null)
+            {
+                return NotFound();
+            }
+
+            var archivosAdjuntos = await context.ArchivosAdjuntos.Where(x => x.TareaId == tareaId).ToListAsync();
+
+            var archivosIds = archivosAdjuntos.Select(x => x.Id);
+
+            var idsArchivosNoPerteneceAlaTarea = ids.Except(archivosIds).ToList();
+
+            if (idsArchivosNoPerteneceAlaTarea.Any())
+            {
+                return BadRequest("No todos los archivos estan presentes");
+            }
+
+            var archivosDiccionario = archivosAdjuntos.ToDictionary(p => p.Id);
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                var archivoId = ids[i];
+                var archivo = archivosDiccionario[archivoId];
+                archivo.Orden = i + 1;
+            }
+
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }
