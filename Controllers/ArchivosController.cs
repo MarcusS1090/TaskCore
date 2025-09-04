@@ -59,7 +59,7 @@ namespace TaskCore.Controllers
                 TareaId = tareaId,
                 FechaCreacion = DateTime.UtcNow,
                 Url = resultado.URL,
-                Titutlo = resultado.Titulo,
+                Titulo = resultado.Titulo,
                 Orden = ordenMayor + indice + 1
 
             }).ToList();
@@ -69,6 +69,30 @@ namespace TaskCore.Controllers
             await context.SaveChangesAsync();
 
             return archivosAdjuntos.ToList();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PUT (Guid id, [FromBody] string titulo)
+        {
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+             
+            var archivoAdjunto = await context.ArchivosAdjuntos
+                .Include(a => a.Tarea)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (archivoAdjunto is null)
+            {
+                return NotFound();
+            }
+
+            if (archivoAdjunto.Tarea.UsuarioCreacionId != usuarioId)
+            {
+                return Forbid();
+            }
+
+            archivoAdjunto.Titulo = titulo;
+            await context.SaveChangesAsync();
+            return Ok();
         }
 
     }

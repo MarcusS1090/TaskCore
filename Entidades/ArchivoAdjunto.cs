@@ -9,7 +9,7 @@ namespace TaskCore.Entidades
         public Tarea Tarea { get; set; }
         [Unicode(false)]
         public string Url { get; set; }
-        public string Titutlo { get; set; }
+                public string Titulo { get; set; }
         public int Orden { get; set; }
         public DateTime FechaCreacion { get; set; }
     }

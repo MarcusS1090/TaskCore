@@ -29,5 +29,10 @@
         }));
     })
 
+    tareaEditarViewModel.archivosAdjuntos([]);
+
+
+    preprararArchivosAdjuntos(json.archivosAdjuntos);
+
     modalEditarTareaBootstrap.show();
 }
